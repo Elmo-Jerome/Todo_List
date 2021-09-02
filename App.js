@@ -12,6 +12,12 @@ export default function App() {
     Keyboard.dismiss();
   }
 
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  }
+
   return (
     <View style={styles.container}>
       {/* Today's Tasks */}
@@ -20,12 +26,14 @@ export default function App() {
         <View style={styles.items}>
           {/* division for tasks */}
           {
-            taskItems.map((items, index) => {
-              return <Task key={index} text={items} />
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index} onPress={() => completeTask(index)} >
+                  <Task text={item} />
+                </TouchableOpacity>
+              )
             })
           }
-          <Task text={'Task 1'} />
-          <Task text={'Task 2'} />
         </View>
       </View>
       {/* Write a task */}
